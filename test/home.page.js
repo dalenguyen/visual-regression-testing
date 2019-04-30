@@ -1,26 +1,45 @@
+const assert = require('assert');
 const wdio = require('webdriverio');
 
-const browser = wdio.remote({
-    desiredCapabilities: {
-        browserName: 'chrome'
-    }
-}).init();
+let client;
 
-require('webdrivercss').init(browser);
-
-const url = 'https://learn.visualregressiontesting.com/broke.html';
 // const url = 'https://learn.visualregressiontesting.com/';
+const url = 'https://learn.visualregressiontesting.com/broke.html';
 
-browser.url(url)
-    .webdrivercss('homepage', [
-        {
-            name: 'header',
-            elem: '.header'
-        },
-        {
-            name: 'benefits',
-            elem: '.benefits',
-            screenWidth: [320, 640, 1024]
-        }
-    ])
-    .end();
+describe('my website should always look the same',function() {
+    beforeEach('init webdrivercss', () => {
+        client = wdio.remote({
+            desiredCapabilities: {
+                browserName: 'chrome',
+                chromeOptions: {
+                    args: [
+                        '--headless', 
+                        '--disable-gpu',
+                        'window-size=1920,1080'
+                    ]
+                }        
+            }
+        }).init();
+        
+        require('webdrivercss').init(client);
+    })
+
+    it('homepage should look the same', async (done) => {
+        await client.url(url)
+            .webdrivercss('homepage', [
+                {
+                    name: 'header',
+                    elem: '.header'
+                },
+                {
+                    name: 'benefits',
+                    elem: '.benefits',
+                    screenWidth: [320, 640, 1024]
+                }
+            ])
+            .end()            
+            .call(done);
+
+        // test diff folder
+    });
+})    

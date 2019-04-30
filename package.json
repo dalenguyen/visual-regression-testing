@@ -3,15 +3,24 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {    
-    "serve": "./node_modules/.bin/chromedriver --url-base=/wd/hub --port=4444"
+  "scripts": {
+    "test": "wdio"
   },
-  "keywords": ["webdriverio", "webdrivercss", "visual-regression-testing", "regression-testing"],
+  "keywords": [
+    "webdriverio",
+    "webdrivercss",
+    "visual-regression-testing",
+    "regression-testing"
+  ],
   "author": "Dale Nguyen",
   "license": "ISC",
   "dependencies": {
-    "chromedriver": "^2.46.0",
     "webdrivercss": "github:visualregressiontesting/webdrivercss",
     "webdriverio": "^4.14.4"
+  },
+  "devDependencies": {
+    "wdio-mocha-framework": "^0.6.4",
+    "wdio-selenium-standalone-service": "0.0.12",
+    "wdio-spec-reporter": "^0.1.5",    
   }
 }
