@@ -3,16 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+  "scripts": {    
     "serve": "./node_modules/.bin/chromedriver --url-base=/wd/hub --port=4444"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["webdriverio", "webdrivercss", "visual-regression-testing", "regression-testing"],
+  "author": "Dale Nguyen",
   "license": "ISC",
   "dependencies": {
-    "chromedriver": "^2.43.3",
+    "chromedriver": "^2.46.0",
     "webdrivercss": "github:visualregressiontesting/webdrivercss",
-    "webdriverio": "^4.14.0"
+    "webdriverio": "^4.14.4"
   }
 }
