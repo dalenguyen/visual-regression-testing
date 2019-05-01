@@ -4,7 +4,7 @@
   "description": "Visual Regression Test",
   "main": "index.js",
   "scripts": {
-    "clean": "find . -name '*.diff.png' -delete",
+    "clean": "find . -not -path './node_modules/' -name '*.diff.png' -delete",
     "test": "npm run clean && wdio",
     "dev": "wdio --spec"
   },
