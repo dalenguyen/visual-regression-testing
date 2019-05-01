@@ -21,7 +21,13 @@ describe('my website should always look the same',function() {
             }
         }).init();
         
-        require('webdrivercss').init(client);
+        require('webdrivercss').init(client, {
+            // example options
+            screenshotRoot: 'screenshots/page1',
+            failedComparisonsRoot: 'screenshots/page1/diffs',
+            // misMatchTolerance: 0.05,
+            // screenWidth: [320,480,640,1024]
+        });
     })
 
     it('homepage should look the same', async (done) => {

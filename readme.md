@@ -2,6 +2,10 @@
 
 This will capture images as a baseline for the first run, and compare with the images from the next run.
 
+This project is based on WebdriverIO, WebdriverCSS with Mocha Testing Framework.
+
+[WebDriverCSS](https://github.com/visualregressiontesting/webdrivercss) requires [GraphicsMagick](http://www.graphicsmagick.org/) for image processing, so remember to install it to your local machine before running any tests.
+
 ## Prerequisites
 
 Install packages
@@ -10,21 +14,15 @@ Install packages
 npm install
 ```
 
-[WebDriverCSS](https://github.com/visualregressiontesting/webdrivercss) requires [GraphicsMagick](http://www.graphicsmagick.org/) for image processing, so remember to install it to your local machine before running any tests.
-
 ## Getting Started
 
-You need to run chromedrive instance first
+Run this command to run your test
 
 ```sh
-npm run serve
+npm test
 ```
 
-Then run your test
-
-```sh
-node path-to-your-file.js
-```
+The first time you run, it will create base images. The next time you run, it will create regression images. If there are any differents. It will be saved under screenshots/--/**diffs** folder.
 
 ## Reference
 
