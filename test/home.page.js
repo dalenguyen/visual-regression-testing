@@ -1,10 +1,16 @@
 const assert = require('assert');
 const wdio = require('webdriverio');
+var getDiffFiles = require('../utils/get_diff_files');
 
 let client;
 
-// const url = 'https://learn.visualregressiontesting.com/';
-const url = 'https://learn.visualregressiontesting.com/broke.html';
+const options = {
+    // url: 'https://learn.visualregressiontesting.com/',
+    url: 'https://learn.visualregressiontesting.com/broke.html',
+    screenshotRoot: 'screenshots/page1',
+    failedComparisonsRoot: 'screenshots/page1/diffs'
+}
+
 
 describe('my website should always look the same',function() {
     beforeEach('init webdrivercss', () => {
@@ -23,15 +29,15 @@ describe('my website should always look the same',function() {
         
         require('webdrivercss').init(client, {
             // example options
-            screenshotRoot: 'screenshots/page1',
-            failedComparisonsRoot: 'screenshots/page1/diffs',
+            screenshotRoot: options.screenshotRoot,
+            failedComparisonsRoot: options.failedComparisonsRoot,
             // misMatchTolerance: 0.05,
             // screenWidth: [320,480,640,1024]
         });
     })
 
     it('homepage should look the same', async (done) => {
-        await client.url(url)
+        await client.url(options.url)
             .webdrivercss('homepage', [
                 {
                     name: 'header',
@@ -47,5 +53,8 @@ describe('my website should always look the same',function() {
             .call(done);
 
         // test diff folder
+        const files = await getDiffFiles(options.failedComparisonsRoot);        
+        // console.table({files})
+        assert.equal(files.length, 0, `There are changes on the site! Please check in ${options.failedComparisonsRoot} folder.`)
     });
 })    

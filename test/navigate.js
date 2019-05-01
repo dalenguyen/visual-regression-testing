@@ -1,9 +1,15 @@
 const assert = require('assert');
 const wdio = require('webdriverio');
+var getDiffFiles = require('../utils/get_diff_files');
 
 let client;
 
-const url = 'http://outdatedbrowser.com';
+const options = {
+    url: 'http://outdatedbrowser.com',    
+    screenshotRoot: 'screenshots/page2',
+    failedComparisonsRoot: 'screenshots/page2/diffs'
+}
+
 const menuIcon = {
     name: 'Menu icon',
     elem: '.menu a'
@@ -31,15 +37,15 @@ describe('my website should always look the same',function() {
         
         require('webdrivercss').init(client, {
             // example options
-            screenshotRoot: 'screenshots/page2',
-            failedComparisonsRoot: 'screenshots/page2/diffs',
+            screenshotRoot: options.screenshotRoot,
+            failedComparisonsRoot: options.failedComparisonsRoot,
             // misMatchTolerance: 0.05,
             // screenWidth: [320,480,640,1024]
         });
     })
 
     it('Test navigation', async (done) => {
-        await client.url(url)
+        await client.url(options.url)
                 // take pictures of icon & page
                 .webdrivercss('Hamburger Icon', [menuIcon])
                 .click(menuIcon.elem)
@@ -56,5 +62,8 @@ describe('my website should always look the same',function() {
                 .call(done);
 
         // test diff folder
+        const files = await getDiffFiles(options.failedComparisonsRoot);        
+        // console.table({files})
+        assert.equal(files.length, 0, `There are changes on the site! Please check in ${options.failedComparisonsRoot} folder.`)
     });
 })    
